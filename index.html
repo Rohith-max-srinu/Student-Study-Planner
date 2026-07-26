@@ -1,15 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Student Study Planner</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<center> MY STUDY PLAN</center>
+    <header>
+        <h1>📚 Student Study Planner</h1>
+        <p>Plan your studies and achieve your goals.</p>
+    </header>
 
-<script src="script.js"></script>
+    <main>
+
+        <section class="card">
+            <h2>Add New Task</h2>
+
+            <input type="text" id="taskInput" placeholder="Enter your task">
+
+            <button>Add Task</button>
+        </section>
+
+        <section class="card">
+
+            <h2>Today's Tasks</h2>
+
+            <ul id="taskList">
+
+            </ul>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
