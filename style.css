@@ -1,0 +1,171 @@
+/* ===== Base Reset ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #fff3e0);
+    min-height: 100vh;
+    color: #333;
+    padding-bottom: 40px;
+}
+
+/* ===== Header ===== */
+header {
+    text-align: center;
+    padding: 40px 20px 30px;
+    background: linear-gradient(135deg, #6c63ff, #4facfe);
+    color: #fff;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* ===== Main Layout ===== */
+main {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* ===== Card Style ===== */
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+    margin-bottom: 18px;
+    font-size: 1.3rem;
+    color: #4a47a3;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* ===== Input & Button ===== */
+#taskInput {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    margin-bottom: 14px;
+}
+
+#taskInput:focus {
+    border-color: #6c63ff;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #6c63ff, #4facfe);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* ===== Task List ===== */
+#taskList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#taskList li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f7f8fc;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    border-left: 4px solid #6c63ff;
+    animation: fadeIn 0.3s ease;
+}
+
+#taskList li.completed {
+    text-decoration: line-through;
+    color: #999;
+    border-left-color: #4caf50;
+    background: #f1f7f1;
+}
+
+#taskList:empty::after {
+    content: "No tasks yet — add one above! 🎯";
+    display: block;
+    text-align: center;
+    color: #aaa;
+    padding: 10px 0;
+}
+
+/* ===== Task Buttons (optional delete/complete icons) ===== */
+#taskList li button {
+    width: auto;
+    padding: 4px 10px;
+    background: #ff6b6b;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    margin-left: 8px;
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.7rem;
+    }
+
+    .card {
+        padding: 18px;
+    }
+}
