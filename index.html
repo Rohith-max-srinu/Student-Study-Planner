@@ -29,7 +29,7 @@
                 <option value="Low">🟢 Low</option>
             </select>
 
-            <button>Add Task</button>
+            <button id="addBtn">Add Task</button>
 
         </section>
 
@@ -38,6 +38,12 @@
             <h2>Today's Tasks</h2>
 
             <input type="text" id="searchInput" placeholder="🔍 Search tasks...">
+
+            <div class="filters">
+                <button id="allBtn">All</button>
+                <button id="pendingBtn">Pending</button>
+                <button id="completedBtn">Completed</button>
+            </div>
 
             <ul id="taskList"></ul>
 
