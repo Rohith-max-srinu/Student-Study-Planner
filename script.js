@@ -5,99 +5,147 @@ const addButton = document.querySelector("button");
 
 addButton.addEventListener("click", addTask);
 
-function addTask(){
+// Load saved tasks when page opens
+loadTasks();
+
+function addTask() {
 
     const task = taskInput.value.trim();
 
-    if(task===""){
+    if (task === "") {
         alert("Please enter a task.");
         return;
     }
 
+    createTask(task, priority.value, false);
+
+    saveTasks();
+
+    taskInput.value = "";
+}
+
+function createTask(task, priorityValue, completed) {
+
     const li = document.createElement("li");
 
     const checkbox = document.createElement("input");
-    checkbox.type="checkbox";
+    checkbox.type = "checkbox";
+    checkbox.checked = completed;
 
     const span = document.createElement("span");
+    span.style.marginLeft = "10px";
 
-    let icon="🟢";
+    let icon = "🟢";
 
-    if(priority.value==="High"){
-        icon="🔴";
+    if (priorityValue === "High") {
+        icon = "🔴";
+    } else if (priorityValue === "Medium") {
+        icon = "🟡";
     }
-    else if(priority.value==="Medium"){
-        icon="🟡";
+
+    span.textContent = icon + " " + task;
+
+    if (completed) {
+        span.style.textDecoration = "line-through";
+        span.style.color = "green";
     }
 
-    span.textContent=icon+" "+task;
-    span.style.marginLeft="10px";
+    checkbox.onchange = function () {
 
-    span.ondblclick=function(){
+        if (checkbox.checked) {
+            span.style.textDecoration = "line-through";
+            span.style.color = "green";
+        } else {
+            span.style.textDecoration = "none";
+            span.style.color = "black";
+        }
 
-        const input=document.createElement("input");
+        saveTasks();
+    };
 
-        input.type="text";
+    span.ondblclick = function () {
 
-        input.value=task;
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = task;
 
-        li.replaceChild(input,span);
+        li.replaceChild(input, span);
 
         input.focus();
 
-        input.onkeydown=function(event){
+        input.onkeydown = function (event) {
 
-            if(event.key==="Enter"){
+            if (event.key === "Enter") {
 
-                span.textContent=icon+" "+input.value;
+                span.textContent = icon + " " + input.value;
 
-                li.replaceChild(span,input);
+                li.replaceChild(span, input);
 
+                saveTasks();
             }
 
-        }
+        };
 
-    }
+    };
 
-    checkbox.onchange=function(){
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.style.marginLeft = "20px";
 
-        if(checkbox.checked){
-
-            span.style.textDecoration="line-through";
-
-            span.style.color="green";
-
-        }
-
-        else{
-
-            span.style.textDecoration="none";
-
-            span.style.color="black";
-
-        }
-
-    }
-
-    const deleteBtn=document.createElement("button");
-
-    deleteBtn.textContent="Delete";
-
-    deleteBtn.style.marginLeft="20px";
-
-    deleteBtn.onclick=function(){
+    deleteBtn.onclick = function () {
 
         li.remove();
 
-    }
+        saveTasks();
+
+    };
 
     li.appendChild(checkbox);
-
     li.appendChild(span);
-
     li.appendChild(deleteBtn);
 
     taskList.appendChild(li);
-
-    taskInput.value="";
 }
+
+function saveTasks() {
+
+    const tasks = [];
+
+    const items = taskList.querySelectorAll("li");
+
+    items.forEach(function (item) {
+
+        const checkbox = item.querySelector("input");
+
+        const span = item.querySelector("span");
+
+        let priority = "Low";
+
+        if (span.textContent.startsWith("🔴")) {
+            priority = "High";
+        } else if (span.textContent.startsWith("🟡")) {
+            priority = "Medium";
+        }
+
+        tasks.push({
+            text: span.textContent.substring(2),
+            priority: priority,
+            completed: checkbox.checked
+        });
+
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    tasks.forEach(function (task) {
+
+        createTask(task.text, task.priority, task.completed);
+
+    });
+
+}                                                                                                            
