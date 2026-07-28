@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Study Planner</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -17,35 +18,73 @@
 
     <main>
 
+        <!-- Add Task Card -->
         <section class="card">
 
             <h2>Add New Task</h2>
 
-            <input type="text" id="taskInput" placeholder="Enter your task">
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Enter your task"
+            >
 
             <select id="priority">
+
                 <option value="High">🔴 High</option>
+
                 <option value="Medium">🟡 Medium</option>
+
                 <option value="Low">🟢 Low</option>
+
             </select>
 
-            <button id="addBtn">Add Task</button>
+            <!-- NEW: Due Date -->
+            <label for="dueDate">
+                📅 Select Due Date
+            </label>
+
+            <input
+                type="date"
+                id="dueDate"
+            >
+
+            <button id="addBtn">
+                Add Task
+            </button>
 
         </section>
 
+        <!-- Task List -->
         <section class="card">
 
             <h2>Today's Tasks</h2>
 
-            <input type="text" id="searchInput" placeholder="🔍 Search tasks...">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 Search tasks..."
+            >
 
             <div class="filters">
-                <button id="allBtn">All</button>
-                <button id="pendingBtn">Pending</button>
-                <button id="completedBtn">Completed</button>
+
+                <button id="allBtn">
+                    All
+                </button>
+
+                <button id="pendingBtn">
+                    Pending
+                </button>
+
+                <button id="completedBtn">
+                    Completed
+                </button>
+
             </div>
 
-            <ul id="taskList"></ul>
+            <ul id="taskList">
+
+            </ul>
 
         </section>
 
