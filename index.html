@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Student Study Planner</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,40 +18,35 @@
     <main>
 
         <section class="card">
+
             <h2>Add New Task</h2>
 
             <input type="text" id="taskInput" placeholder="Enter your task">
 
+            <select id="priority">
+                <option value="High">🔴 High</option>
+                <option value="Medium">🟡 Medium</option>
+                <option value="Low">🟢 Low</option>
+            </select>
+
             <button>Add Task</button>
+
         </section>
 
         <section class="card">
 
             <h2>Today's Tasks</h2>
 
-            <ul id="taskList">
+            <input type="text" id="searchInput" placeholder="🔍 Search tasks...">
 
-            </ul>
+            <ul id="taskList"></ul>
 
         </section>
 
     </main>
 
     <script src="script.js"></script>
-    <input type="text" id="taskInput" placeholder="Enter your task">
-
-<select id="priority">
-
-    <option value="High">🔴 High</option>
-
-    <option value="Medium">🟡 Medium</option>
-
-    <option value="Low">🟢 Low</option>
-
-</select>
-
-<button>Add Task</button>
 
 </body>
 
-</html>  
+</html>

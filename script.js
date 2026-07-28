@@ -1,12 +1,14 @@
 const taskInput = document.getElementById("taskInput");
 const priority = document.getElementById("priority");
+const searchInput = document.getElementById("searchInput");
 const taskList = document.getElementById("taskList");
 const addButton = document.querySelector("button");
 
 addButton.addEventListener("click", addTask);
 
-// Load saved tasks when page opens
 loadTasks();
+
+searchInput.addEventListener("keyup", searchTasks);
 
 function addTask() {
 
@@ -31,6 +33,7 @@ function createTask(task, priorityValue, completed) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = completed;
+    checkbox.style.width = "20px";
 
     const span = document.createElement("span");
     span.style.marginLeft = "10px";
@@ -61,12 +64,15 @@ function createTask(task, priorityValue, completed) {
         }
 
         saveTasks();
+
     };
 
     span.ondblclick = function () {
 
         const input = document.createElement("input");
+
         input.type = "text";
+
         input.value = task;
 
         li.replaceChild(input, span);
@@ -82,6 +88,7 @@ function createTask(task, priorityValue, completed) {
                 li.replaceChild(span, input);
 
                 saveTasks();
+
             }
 
         };
@@ -89,7 +96,9 @@ function createTask(task, priorityValue, completed) {
     };
 
     const deleteBtn = document.createElement("button");
+
     deleteBtn.textContent = "Delete";
+
     deleteBtn.style.marginLeft = "20px";
 
     deleteBtn.onclick = function () {
@@ -105,18 +114,16 @@ function createTask(task, priorityValue, completed) {
     li.appendChild(deleteBtn);
 
     taskList.appendChild(li);
+
 }
 
 function saveTasks() {
 
     const tasks = [];
 
-    const items = taskList.querySelectorAll("li");
-
-    items.forEach(function (item) {
+    document.querySelectorAll("#taskList li").forEach(function (item) {
 
         const checkbox = item.querySelector("input");
-
         const span = item.querySelector("span");
 
         let priority = "Low";
@@ -136,6 +143,7 @@ function saveTasks() {
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
+
 }
 
 function loadTasks() {
@@ -148,4 +156,28 @@ function loadTasks() {
 
     });
 
-}                                                                                                            
+}
+
+function searchTasks() {
+
+    const search = searchInput.value.toLowerCase();
+
+    const tasks = document.querySelectorAll("#taskList li");
+
+    tasks.forEach(function (task) {
+
+        const text = task.querySelector("span").textContent.toLowerCase();
+
+        if (text.includes(search)) {
+
+            task.style.display = "";
+
+        } else {
+
+            task.style.display = "none";
+
+        }
+
+    });
+
+}

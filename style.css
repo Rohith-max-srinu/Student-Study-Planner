@@ -23,7 +23,6 @@ header h1 {
 
 header p {
     margin-top: 10px;
-    font-size: 1rem;
 }
 
 main {
@@ -44,12 +43,13 @@ main {
     margin-bottom: 15px;
 }
 
-input {
+input,
+select {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
     margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
 
 button {
@@ -59,7 +59,6 @@ button {
     padding: 12px 20px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
 }
 
 button:hover {
@@ -72,14 +71,7 @@ ul {
 
 li {
     background: #eef2ff;
+    margin-top: 12px;
     padding: 12px;
-    margin-top: 10px;
     border-radius: 8px;
-}
-select{
-    width:100%;
-    padding:12px;
-    margin-bottom:15px;
-    border-radius:8px;
-    border:1px solid #ccc;
 }
