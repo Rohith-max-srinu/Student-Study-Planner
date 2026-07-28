@@ -76,3 +76,10 @@ li {
     margin-top: 10px;
     border-radius: 8px;
 }
+select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}

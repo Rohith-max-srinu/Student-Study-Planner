@@ -1,64 +1,103 @@
 const taskInput = document.getElementById("taskInput");
+const priority = document.getElementById("priority");
 const taskList = document.getElementById("taskList");
 const addButton = document.querySelector("button");
 
 addButton.addEventListener("click", addTask);
 
-function addTask() {
+function addTask(){
 
     const task = taskInput.value.trim();
 
-    if (task === "") {
+    if(task===""){
         alert("Please enter a task.");
         return;
     }
 
     const li = document.createElement("li");
 
-    // Checkbox
     const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
+    checkbox.type="checkbox";
 
-    // Task text
     const span = document.createElement("span");
-    span.textContent = task;
-    span.style.marginLeft = "10px";
 
-    // Delete button
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.style.marginLeft = "20px";
+    let icon="🟢";
 
-    // Complete task
-    checkbox.onchange = function () {
+    if(priority.value==="High"){
+        icon="🔴";
+    }
+    else if(priority.value==="Medium"){
+        icon="🟡";
+    }
 
-        if (checkbox.checked) {
+    span.textContent=icon+" "+task;
+    span.style.marginLeft="10px";
 
-            span.style.textDecoration = "line-through";
-            span.style.color = "green";
+    span.ondblclick=function(){
 
-        } else {
+        const input=document.createElement("input");
 
-            span.style.textDecoration = "none";
-            span.style.color = "black";
+        input.type="text";
+
+        input.value=task;
+
+        li.replaceChild(input,span);
+
+        input.focus();
+
+        input.onkeydown=function(event){
+
+            if(event.key==="Enter"){
+
+                span.textContent=icon+" "+input.value;
+
+                li.replaceChild(span,input);
+
+            }
 
         }
 
-    };
+    }
 
-    // Delete task
-    deleteBtn.onclick = function () {
+    checkbox.onchange=function(){
+
+        if(checkbox.checked){
+
+            span.style.textDecoration="line-through";
+
+            span.style.color="green";
+
+        }
+
+        else{
+
+            span.style.textDecoration="none";
+
+            span.style.color="black";
+
+        }
+
+    }
+
+    const deleteBtn=document.createElement("button");
+
+    deleteBtn.textContent="Delete";
+
+    deleteBtn.style.marginLeft="20px";
+
+    deleteBtn.onclick=function(){
 
         li.remove();
 
-    };
+    }
 
     li.appendChild(checkbox);
+
     li.appendChild(span);
+
     li.appendChild(deleteBtn);
 
     taskList.appendChild(li);
 
-    taskInput.value = "";
-
+    taskInput.value="";
 }
