@@ -1,3 +1,4 @@
+/* Reset */
 *{
     margin:0;
     padding:0;
@@ -5,10 +6,13 @@
     font-family:Arial,sans-serif;
 }
 
+/* Body */
 body{
     background:#f4f7fc;
+    color:#333;
 }
 
+/* Header */
 header{
     background:#2563eb;
     color:white;
@@ -16,57 +20,141 @@ header{
     padding:30px;
 }
 
+header h1{
+    font-size:2.2rem;
+    margin-bottom:10px;
+}
+
+header p{
+    font-size:1rem;
+}
+
+/* Main */
 main{
-    width:80%;
+    width:90%;
     max-width:900px;
     margin:30px auto;
 }
 
+/* Card */
 .card{
     background:white;
     padding:20px;
-    margin-bottom:20px;
+    margin-bottom:25px;
     border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
+.card h2{
+    margin-bottom:15px;
+}
+
+/* Label */
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+/* Inputs */
 input,
 select{
     width:100%;
     padding:12px;
     margin-bottom:15px;
-    border-radius:8px;
     border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
 }
 
+/* Buttons */
 button{
     background:#2563eb;
     color:white;
     border:none;
-    padding:10px 20px;
+    padding:12px 20px;
     border-radius:8px;
     cursor:pointer;
+    transition:.3s;
+    font-size:15px;
 }
 
 button:hover{
     background:#1d4ed8;
 }
 
+/* Filter Buttons */
 .filters{
     margin-bottom:20px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
-.filters button{
-    margin-right:10px;
-}
-
+/* Task List */
 ul{
     list-style:none;
 }
 
+/* Task Item */
 li{
     background:#eef2ff;
-    margin-top:10px;
-    padding:12px;
-    border-radius:8px;
+    margin-bottom:12px;
+    padding:15px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+/* Checkbox */
+li input[type="checkbox"]{
+    width:20px;
+    height:20px;
+}
+
+/* Task Text */
+.task-text{
+    flex:1;
+    margin-left:10px;
+    font-size:16px;
+}
+
+/* Due Date */
+.due-date{
+    color:#666;
+    font-size:14px;
+    margin-left:10px;
+}
+
+/* Delete Button */
+.delete-btn{
+    background:#dc3545;
+}
+
+.delete-btn:hover{
+    background:#b02a37;
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+    main{
+        width:95%;
+    }
+
+    li{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .filters{
+        flex-direction:column;
+    }
+
+    .filters button{
+        width:100%;
+    }
+
 }
