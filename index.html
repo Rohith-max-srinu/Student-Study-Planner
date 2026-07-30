@@ -1,97 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Study Planner</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyAtlas · Student Study Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
+<body data-theme="light">
 
-<body>
+<div class="app">
 
-    <header>
-        <h1>📚 Student Study Planner</h1>
-        <p>Plan your studies and achieve your goals.</p>
+  <!-- ===== Sidebar (desktop) ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark">✺</span>
+      <span class="brand-name">Study<em>Atlas</em></span>
+    </div>
+
+    <nav class="nav" id="sideNav">
+      <button class="nav-item active" data-view="dashboard"><span class="nav-ico">🏠</span>Dashboard</button>
+      <button class="nav-item" data-view="tasks"><span class="nav-ico">✅</span>Tasks</button>
+      <button class="nav-item" data-view="calendar"><span class="nav-ico">📅</span>Calendar</button>
+      <button class="nav-item" data-view="deadlines"><span class="nav-ico">⏰</span>Deadlines</button>
+      <button class="nav-item" data-view="progress"><span class="nav-ico">📊</span>Progress</button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <button class="theme-toggle" id="themeToggle">
+        <span id="themeIcon">🌙</span> <span id="themeLabel">Dark mode</span>
+      </button>
+      <p class="tagline">Small steps, plotted daily.</p>
+    </div>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      <div class="topbar-title">
+        <h1 id="viewTitle">Dashboard</h1>
+        <p id="viewDate"></p>
+      </div>
+      <button class="add-btn" id="quickAddBtn">+ New task</button>
     </header>
 
-    <main>
+    <!-- ---------- DASHBOARD ---------- -->
+    <section class="view active" id="view-dashboard">
+      <div class="greet-strip">
+        <div>
+          <p class="eyebrow">Welcome back</p>
+          <h2 id="greetName">Let's make today count.</h2>
+        </div>
+        <div class="streak-chip" id="streakChip">
+          <span class="flame">🔥</span>
+          <div><strong id="streakCount">0</strong><small>day streak</small></div>
+        </div>
+      </div>
 
-        <!-- Add Task Card -->
-        <section class="card">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <p class="stat-label">Due today</p>
+          <p class="stat-value" id="statToday">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Completed today</p>
+          <p class="stat-value" id="statCompleted">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Next 3 days</p>
+          <p class="stat-value" id="statUpcoming">0</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Overdue</p>
+          <p class="stat-value warn" id="statOverdue">0</p>
+        </div>
+      </div>
 
-            <h2>Add New Task</h2>
-
-            <input
-                type="text"
-                id="taskInput"
-                placeholder="Enter your task"
-            >
-
-            <select id="priority">
-
-                <option value="High">🔴 High</option>
-
-                <option value="Medium">🟡 Medium</option>
-
-                <option value="Low">🟢 Low</option>
-
-            </select>
-
-            <!-- NEW: Due Date -->
-            <label for="dueDate">
-                📅 Select Due Date
-            </label>
-
-            <input
-                type="date"
-                id="dueDate"
-            >
-
-            <button id="addBtn">
-                Add Task
-            </button>
-
-        </section>
-
-        <!-- Task List -->
-        <section class="card">
-
-            <h2>Today's Tasks</h2>
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="🔍 Search tasks..."
-            >
-
-            <div class="filters">
-
-                <button id="allBtn">
-                    All
-                </button>
-
-                <button id="pendingBtn">
-                    Pending
-                </button>
-
-                <button id="completedBtn">
-                    Completed
-                </button>
-
+      <div class="dash-columns">
+        <div class="card focus-card">
+          <h3>Today's focus</h3>
+          <div class="ring-wrap">
+            <svg viewBox="0 0 140 140" class="ring-svg">
+              <circle cx="70" cy="70" r="60" class="ring-track"></circle>
+              <circle cx="70" cy="70" r="60" class="ring-progress" id="focusRing"></circle>
+            </svg>
+            <div class="ring-center">
+              <span id="ringPercent">0%</span>
+              <small>done today</small>
             </div>
+          </div>
+          <ul class="mini-list" id="upcomingPreview"></ul>
+        </div>
 
-            <ul id="taskList">
+        <div class="card heatmap-card">
+          <h3>Study streak <small>last 10 weeks</small></h3>
+          <div class="heatmap" id="heatmapGrid"></div>
+          <div class="heatmap-legend">
+            <span>Less</span>
+            <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
+            <span>More</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            </ul>
+    <!-- ---------- TASKS ---------- -->
+    <section class="view" id="view-tasks">
+      <div class="toolbar">
+        <div class="seg" id="taskFilterSeg">
+          <button class="seg-btn active" data-filter="all">All</button>
+          <button class="seg-btn" data-filter="active">Active</button>
+          <button class="seg-btn" data-filter="completed">Completed</button>
+        </div>
+        <select id="taskSort" class="select">
+          <option value="date">Sort by due date</option>
+          <option value="priority">Sort by priority</option>
+          <option value="subject">Sort by subject</option>
+        </select>
+      </div>
+      <ul class="task-list" id="taskListContainer"></ul>
+      <p class="empty-state" id="taskEmptyState">No tasks here yet — tap "+ New task" to add your first one. 🎯</p>
+    </section>
 
-        </section>
+    <!-- ---------- CALENDAR ---------- -->
+    <section class="view" id="view-calendar">
+      <div class="cal-header">
+        <button class="cal-nav" id="calPrev">‹</button>
+        <h3 id="calMonthLabel">Month Year</h3>
+        <button class="cal-nav" id="calNext">›</button>
+      </div>
+      <div class="cal-weekdays">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+      </div>
+      <div class="cal-grid" id="calendarGrid"></div>
 
-    </main>
+      <div class="card day-detail" id="dayDetail">
+        <h3 id="dayDetailTitle">Select a day</h3>
+        <ul class="mini-list" id="dayDetailList"></ul>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- ---------- DEADLINES ---------- -->
+    <section class="view" id="view-deadlines">
+      <div id="deadlinesContainer"></div>
+      <p class="empty-state" id="deadlineEmptyState">No deadlines on the horizon. Nice and clear. ✨</p>
+    </section>
 
+    <!-- ---------- PROGRESS ---------- -->
+    <section class="view" id="view-progress">
+      <div class="dash-columns">
+        <div class="card">
+          <h3>Overall completion</h3>
+          <div class="ring-wrap">
+            <svg viewBox="0 0 140 140" class="ring-svg">
+              <circle cx="70" cy="70" r="60" class="ring-track"></circle>
+              <circle cx="70" cy="70" r="60" class="ring-progress" id="overallRing"></circle>
+            </svg>
+            <div class="ring-center">
+              <span id="overallPercent">0%</span>
+              <small id="overallFraction">0 / 0</small>
+            </div>
+          </div>
+          <div class="streak-stats">
+            <div><strong id="curStreak">0</strong><small>current streak</small></div>
+            <div><strong id="bestStreak">0</strong><small>best streak</small></div>
+            <div><strong id="totalDone">0</strong><small>tasks done</small></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>By subject</h3>
+          <div class="subject-breakdown" id="subjectBreakdown"></div>
+        </div>
+      </div>
+
+      <div class="card heatmap-card">
+        <h3>Full activity heatmap</h3>
+        <div class="heatmap heatmap-lg" id="heatmapGridLarge"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===== Bottom nav (mobile) ===== -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="bn-item active" data-view="dashboard"><span>🏠</span></button>
+  <button class="bn-item" data-view="tasks"><span>✅</span></button>
+  <button class="bn-item" data-view="calendar"><span>📅</span></button>
+  <button class="bn-item" data-view="deadlines"><span>⏰</span></button>
+  <button class="bn-item" data-view="progress"><span>📊</span></button>
+</nav>
+
+<!-- ===== Task Modal ===== -->
+<div class="modal-overlay" id="taskModalOverlay">
+  <form class="modal" id="taskForm">
+    <div class="modal-head">
+      <h3 id="modalTitle">New task</h3>
+      <button type="button" class="modal-close" id="modalClose">✕</button>
+    </div>
+
+    <label class="field">
+      <span>Title</span>
+      <input type="text" id="fieldTitle" placeholder="e.g. Read Chapter 4 — Thermodynamics" required>
+    </label>
+
+    <div class="field-row">
+      <label class="field">
+        <span>Subject</span>
+        <input type="text" id="fieldSubject" placeholder="e.g. Physics" list="subjectSuggestions">
+        <datalist id="subjectSuggestions"></datalist>
+      </label>
+      <label class="field">
+        <span>Priority</span>
+        <select id="fieldPriority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="field-row">
+      <label class="field">
+        <span>Due date</span>
+        <input type="date" id="fieldDate">
+      </label>
+      <label class="field">
+        <span>Due time</span>
+        <input type="time" id="fieldTime">
+      </label>
+    </div>
+
+    <label class="field">
+      <span>Notes</span>
+      <textarea id="fieldNotes" rows="2" placeholder="Optional details…"></textarea>
+    </label>
+
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="deleteTaskBtn" hidden>Delete</button>
+      <div class="spacer"></div>
+      <button type="button" class="btn ghost" id="cancelTaskBtn">Cancel</button>
+      <button type="submit" class="btn primary" id="saveTaskBtn">Save task</button>
+    </div>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
 </body>
-
 </html>

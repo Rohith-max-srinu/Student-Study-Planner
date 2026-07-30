@@ -525,4 +525,6 @@ function updateDueDateColors() {
 updateDueDateColors();
 
 // Update colors every second
-setInterval(updateDueDateColors, 1000);
+setInterval(updateDueDateColors, 1000);         
+
+         
